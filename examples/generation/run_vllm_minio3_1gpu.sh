@@ -11,7 +11,7 @@ set -euo pipefail
 
 MODEL_PATH=${MODEL_PATH:-/data4/home/models/Mini-o3-7B-v1}
 PORT=${PORT:-8000}
-GPU_ID=${GPU_ID:-0}
+GPU_ID=${GPU_ID:-1}
 
 export CUDA_VISIBLE_DEVICES=${GPU_ID}
 

@@ -171,7 +171,8 @@ def ask_once(question: str, image_path: str, cfg: DemoConfig | None = None) -> d
 
 
 if __name__ == "__main__":
-    demo_question = "图中蓝色招牌的店名是什么？"
-    demo_image = "assets/fig_demo_crop.jpg"
+    demo_question = "How much does a bottle of mineral water on the far right cost?"
+    demo_image = "assets/visual_probe_medium_62.jpg"
+    answer = "3 yuan and 80 cents"
     result = ask_once(demo_question, demo_image)
     print(json.dumps(result, ensure_ascii=False, indent=2))
