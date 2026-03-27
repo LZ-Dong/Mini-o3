@@ -132,7 +132,7 @@ Mini-o3 原生 crop 核心是：
 - 默认本地模型路径：`/data4/home/models/Mini-o3-7B-v1`
 - 默认单卡：`GPU_ID=0`
 - 默认端口：`8000`
-- 多模态约束：`--limit-mm-per-prompt image=10`
+- 多模态约束：`--limit-mm-per-prompt '{"image": 10}'`
 
 启动方式：
 

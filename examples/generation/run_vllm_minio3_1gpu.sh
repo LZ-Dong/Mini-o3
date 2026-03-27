@@ -25,5 +25,5 @@ vllm serve "${MODEL_PATH}" \
   --dtype bfloat16 \
   --gpu-memory-utilization 0.85 \
   --max-model-len 16384 \
-  --limit-mm-per-prompt image=10 \
+  --limit-mm-per-prompt '{"image": 10}' \
   --trust-remote-code
