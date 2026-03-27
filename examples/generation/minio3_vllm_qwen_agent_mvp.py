@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import base64
 from dataclasses import dataclass
 from typing import Any
 
@@ -46,6 +47,20 @@ def _chat_once(client: OpenAI, cfg: DemoConfig, messages: list[dict[str, Any]]) 
         max_tokens=cfg.max_tokens,
     )
     return resp.choices[0].message.content or ""
+
+
+def _image_to_data_url(image_path: str) -> str:
+    ext = os.path.splitext(image_path)[1].lower()
+    mime = {
+        ".jpg": "image/jpeg",
+        ".jpeg": "image/jpeg",
+        ".png": "image/png",
+        ".webp": "image/webp",
+        ".gif": "image/gif",
+    }.get(ext, "application/octet-stream")
+    with open(image_path, "rb") as f:
+        encoded = base64.b64encode(f.read()).decode("ascii")
+    return f"data:{mime};base64,{encoded}"
 
 
 def _parse_grounding(text: str) -> dict[str, Any] | None:
@@ -97,7 +112,7 @@ def ask_once(question: str, image_path: str, cfg: DemoConfig | None = None) -> d
             "role": "user",
             "content": [
                 {"type": "text", "text": question},
-                {"type": "image_url", "image_url": {"url": f"file://{observations[0]}"}},
+                {"type": "image_url", "image_url": {"url": _image_to_data_url(observations[0])}},
             ],
         },
     ]
@@ -154,7 +169,7 @@ def ask_once(question: str, image_path: str, cfg: DemoConfig | None = None) -> d
                             "Continue and give <answer> when ready."
                         ),
                     },
-                    {"type": "image_url", "image_url": {"url": f"file://{observations[-1]}"}},
+                    {"type": "image_url", "image_url": {"url": _image_to_data_url(observations[-1])}},
                 ],
             }
         )
