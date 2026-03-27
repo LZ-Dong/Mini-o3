@@ -35,7 +35,7 @@ class DemoConfig:
     api_key: str = os.getenv("VLLM_API_KEY", "EMPTY")
     model: str = os.getenv("VLLM_MODEL", "/data4/home/models/Mini-o3-7B-v1")
     max_tokens: int = 512
-    max_rounds: int = 6
+    max_rounds: int = 12
     work_dir: str = os.getenv("MINIO3_DEMO_WORK_DIR", "/tmp/minio3_demo")
 
 
@@ -43,7 +43,7 @@ def _chat_once(client: OpenAI, cfg: DemoConfig, messages: list[dict[str, Any]]) 
     resp = client.chat.completions.create(
         model=cfg.model,
         messages=messages,
-        temperature=0.2,
+        temperature=1.0,
         max_tokens=cfg.max_tokens,
     )
     return resp.choices[0].message.content or ""
@@ -186,8 +186,8 @@ def ask_once(question: str, image_path: str, cfg: DemoConfig | None = None) -> d
 
 
 if __name__ == "__main__":
-    demo_question = "How much does a bottle of mineral water on the far right cost?"
-    demo_image = "assets/visual_probe_medium_62.jpg"
-    answer = "3 yuan and 80 cents"
+    demo_question = 'What is written below "OLU56130"?'
+    demo_image = "assets/visual_probe_hard_73.jpg"
+    answer = "2G1."
     result = ask_once(demo_question, demo_image)
     print(json.dumps(result, ensure_ascii=False, indent=2))
