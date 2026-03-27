@@ -32,7 +32,7 @@ ANSWER_PATTERN = re.compile(r"<answer>.*?</answer>", re.DOTALL)
 class DemoConfig:
     base_url: str = os.getenv("VLLM_BASE_URL", "http://127.0.0.1:8000/v1")
     api_key: str = os.getenv("VLLM_API_KEY", "EMPTY")
-    model: str = os.getenv("VLLM_MODEL", "Mini-o3/Mini-o3-7B-v1")
+    model: str = os.getenv("VLLM_MODEL", "/data4/home/models/Mini-o3-7B-v1")
     max_tokens: int = 512
     max_rounds: int = 6
     work_dir: str = os.getenv("MINIO3_DEMO_WORK_DIR", "/tmp/minio3_demo")
